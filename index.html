@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Counter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f4f8;
+        }
+
+        .counter-container {
+            text-align: center;
+            background: #ffffff;
+            padding: 40px 60px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #click-count {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 24px;
+        }
+
+        #click-btn {
+            padding: 14px 36px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #2563eb;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #click-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        #click-btn:active {
+            background-color: #1e40af;
+        }
+
+        #reset-btn {
+            display: block;
+            margin: 16px auto 0;
+            padding: 8px 20px;
+            font-size: 14px;
+            color: #666;
+            background: none;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        #reset-btn:hover {
+            color: #333;
+            border-color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="counter-container">
+        <h1>Click Counter</h1>
+        <div id="click-count">0</div>
+        <button id="click-btn">Click me!</button>
+        <button id="reset-btn">Reset</button>
+    </div>
+
+    <script>
+        let count = 0;
+        const countDisplay = document.getElementById("click-count");
+        const clickBtn = document.getElementById("click-btn");
+        const resetBtn = document.getElementById("reset-btn");
+
+        clickBtn.addEventListener("click", function () {
+            count++;
+            countDisplay.textContent = count;
+        });
+
+        resetBtn.addEventListener("click", function () {
+            count = 0;
+            countDisplay.textContent = count;
+        });
+    </script>
+</body>
+</html>
