@@ -46,9 +46,11 @@ def create_proxy_handler(backend_url: str):
             body = self.rfile.read(content_length) if content_length > 0 else None
 
             # Build forwarded headers, filtering out hop-by-hop headers
+            # and the Host header (urllib sets the correct Host from the target URL;
+            # the original Host is preserved in X-Forwarded-Host)
             headers = {}
             for key, value in self.headers.items():
-                if key.lower() not in HOP_BY_HOP_HEADERS:
+                if key.lower() not in HOP_BY_HOP_HEADERS and key.lower() != "host":
                     headers[key] = value
 
             # Add X-Forwarded headers
@@ -65,7 +67,7 @@ def create_proxy_handler(backend_url: str):
             )
 
             try:
-                with urllib.request.urlopen(request) as response:
+                with urllib.request.urlopen(request, timeout=30) as response:
                     self._send_response(response.status, response.headers, response.read())
             except urllib.error.HTTPError as e:
                 self._send_response(e.code, e.headers, e.read())

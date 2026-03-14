@@ -230,3 +230,14 @@ def test_proxy_preserves_path():
     data = json.loads(body)
 
     assert data["path"] == "/api/v1/users/42/profile"
+
+
+def test_proxy_sets_backend_host_header():
+    """Test that the proxy sends the backend's Host, not the original request's Host."""
+    _ensure_servers()
+    status, headers, body = _proxy_request("GET", "/host-check")
+    data = json.loads(body)
+
+    # The Host header received by the backend should be the backend's address,
+    # not the proxy's address
+    assert data["headers"]["Host"] == f"127.0.0.1:{BACKEND_PORT}"
