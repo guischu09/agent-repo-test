@@ -16,3 +16,7 @@ venv/
 *.dll
 *.so
 *.dylib
+
+# Rust
+target/
+*.rlib
